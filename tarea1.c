@@ -1,7 +1,5 @@
 
 #include<stdio.h>
-//#include<
-
 
 int getValue()
 {
@@ -18,24 +16,33 @@ int getValue()
 void printValue(int value)
 {
     printf("\n\r");
-    printf("Given value is:\n\r %d", value);
+    printf("Value is:\n\r%d", value);
     printf("\n\r");
 }
 
 void calculateMCD()
 {
-    int a = 0, b = 0, q = 0, r = 0; 
+    int a = 0, a_ini = 0, b = 0, q = 0, r = 0; 
 
-    a = getValue();
+    a_ini = getValue();
 
     b = getValue();
 
-    r = a%b;
+    r = a_ini%b;
 
-    printValue(r);
+    while(r > 0)
+    {
+        r = a_ini%b;
 
+        q = ((a_ini - r) * 1/b);
+
+        b = r;
+
+        a = b * q + r;
+
+        printf("\n\rValue for R is: %d\n\r", r);
+    }
 }
-
 
 void main()
 {
