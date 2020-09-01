@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 
 int getValue()
@@ -22,26 +21,26 @@ void printValue(int value)
 
 void calculateMCD()
 {
-    int a = 0, a_ini = 0, b = 0, q = 0, r = 0; 
+    int a = 0, b = 0, q = 0, r = 0; 
 
-    a_ini = getValue();
+    a = getValue();
 
     b = getValue();
 
-    r = a_ini%b;
-
-    while(r > 0)
+    do
     {
-        r = a_ini%b;
+        r = a%b;
 
-        q = ((a_ini - r) * 1/b);
+        q = ((a - r) * 1/b);
+
+        r = a - (b * q);
+
+        a = b;
 
         b = r;
 
-        a = b * q + r;
-
-        printf("\n\rValue for R is: %d\n\r", r);
-    }
+        printValue(r);
+    }while(r > 0);
 }
 
 void main()
