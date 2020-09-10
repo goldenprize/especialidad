@@ -22,6 +22,17 @@
 #include <stdlib.h> 
 #include <time.h>
 
+/*------------------------------------------------- int GetMaxNumber() -----
+    |  Function:    int GetMaxNumber()
+    |
+    |  Purpose:     Gets the input from the user to get the max number to be randomly generated
+    |
+    |  Parameters:
+    |      parameter_name: N/A
+    |
+    |  Returns:     An integer value that contains the value inserted by the user 
+    *-------------------------------------------------------------------*/
+
 int GetMaxNumber()
 {
     int value = 0; 
@@ -34,6 +45,16 @@ int GetMaxNumber()
     return value;
 }
 
+/*------------------------------------------------- int GenerateRandom(int limit) -----
+    |  Function: int GenerateRandom(int limit)
+    |
+    |  Purpose:  Generates a random number
+    |
+    |  Parameters:
+    |      parameter_name: (IN) int limit 
+    |
+    |  Returns:  Random number that was generated
+    *-------------------------------------------------------------------*/
 int GenerateRandom(int limit)
 {
     srand(time(0)); 
@@ -41,6 +62,16 @@ int GenerateRandom(int limit)
     return rand() % limit;
 }
 
+/*------------------------------------------------- PrintRandomNumber() -----
+    |  Function: PrintRandomNumber()
+    |
+    |  Purpose:  Prints the number that was randomly generated
+    |
+    |  Parameters:
+    |      parameter_name: N/A
+    |
+    |  Returns:  N/A
+    *-------------------------------------------------------------------*/
 void PrintRandomNumber()
 {
     int maxValue = 0;
@@ -50,6 +81,16 @@ void PrintRandomNumber()
     printf("Random number is: %d", GenerateRandom(maxValue) );
 }
 
+/*------------------------------------------------- void main() -----
+    |  Function: void main()
+    |
+    |  Purpose:  Main Function  
+    |
+    |  Parameters:
+    |      parameter_name: N/A
+    |
+    |  Returns:  N/A 
+    *-------------------------------------------------------------------*/
 void main()
 {
     PrintRandomNumber();
