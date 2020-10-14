@@ -61,8 +61,8 @@ int GenerateRandom(int limit)
 
     return rand() % limit;
 }
-
-/*------------------------------------------------- PrintRandomNumber() -----
+    
+/*------------------------------------------------- void PrintRandomNumber() -----
     |  Function: PrintRandomNumber()
     |
     |  Purpose:  Prints the number that was randomly generated

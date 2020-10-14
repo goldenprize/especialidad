@@ -45,5 +45,20 @@ void calculateMCD()
 
 void main()
 {
-    calculateMCD();
+    //calculateMCD();
+
+    int a,b,q,r;
+
+    a = getValue();
+    b = getValue();
+
+    printValue(a);
+
+
+    q = a / b;
+	r = a % b;
+
+    printValue(r);
+
+	printf ("q= %d", q);
 }
