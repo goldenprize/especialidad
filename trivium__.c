@@ -1,4 +1,3 @@
-
 #include "trivium.h"
 
 // Trivium initialization function
@@ -153,13 +152,13 @@ FILE *open_file(char *s, int i)
 	if(fp == NULL) 
     {
 		printf("Error open file!\n");
-		exit(1);
+		return 0;
 	}
 
 	return fp;
 }
-/*
-void main()
+
+void trivium_main()
 {
 	FILE *fp, *fd;
 	struct trivium_context ctx;
@@ -173,42 +172,29 @@ void main()
 
 	uint8_t value = 0;
 
-	while((value = getchar()) != '0')
-    {
-        switch(value)
-        {
-			case 't': 
-				buf = xmalloc(sizeof(uint8_t) * block);
-				out = xmalloc(sizeof(uint8_t) * block);
+	buf = xmalloc(sizeof(uint8_t) * block);
+	out = xmalloc(sizeof(uint8_t) * block);
+
+	fp = open_file(file_ini, 1);
+	fd = open_file(file_fin, 2);
 	
-				fp = open_file(file_ini, 1);
-				fd = open_file(file_fin, 2);
-				
-				memset(key, 'k', sizeof(key));
-				memset(iv, 'i', sizeof(iv));
+	memset(key, 'k', sizeof(key));
+	memset(iv, 'i', sizeof(iv));
 
-				if(trivium_set_key_and_iv(&ctx, (uint8_t *)key, 10, iv, 2)) 
-				{
-					printf("Trivium context filling error!\n");
-					exit(1);
-				}
-				
-				while((byte = fread(buf, 1, block, fp)) > 0) 
-				{
-					if(action == 1)
-						trivium_crypt(&ctx, buf, byte, out);
-					
-					fwrite(out, 1, byte, fd);
-				}
-				
-				free(buf);
-				free(out); 
-				break;
-
-			case 's':
-				printf("asdfasdf");
-				break;
-		}
+	if(trivium_set_key_and_iv(&ctx, (uint8_t *)key, 10, iv, 2)) 
+	{
+		printf("Trivium context filling error!\n");
+		return;
 	}
+	
+	while((byte = fread(buf, 1, block, fp)) > 0) 
+	{
+		if(action == 1)
+			trivium_crypt(&ctx, buf, byte, out);
+		
+		fwrite(out, 1, byte, fd);
+	}
+	
+	free(buf);
+	free(out); 		
 }
-*/

@@ -91,4 +91,6 @@ void *xmalloc(size_t size);
 
 FILE *open_file(char *s, int i);
 
+void trivium_main();
+
 #endif
