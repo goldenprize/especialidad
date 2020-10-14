@@ -233,145 +233,55 @@ FILE *open_file(char *s, int i)
 	return fp;
 }
 
-// Help function
-void help(void)
-{
-	printf("\nThis program is designed to encrypt/decrypt files.\n");
-	printf("\nOptions:\n");
-	printf("\t--help(-h) - reference manual\n");
-	printf("\t--type(-t) - type running of program: 1 - encrypt, 2 - decrypt\n");
-	printf("\t--block(-b) - block size data read from the file. By default = 10000\n");
-	printf("\t--input(-i) - input file\n");
-	printf("\t--output(-o) - output file\n");
-	printf("Example: ./bigtest -t 1 -b 1000 -i 1.txt -o crypt or ./bigtest -t 2 -b 1000 -i crypt -o decrypt\n\n");
-}
-
-int main(int argc, char *argv[])
+void main()
 {
 	FILE *fp, *fd;
 	struct trivium_context ctx;
 	uint32_t byte, block = 10000;
 	uint8_t *buf, *out, key[10], iv[10];
-	char file1[MAX_FILE], file2[MAX_FILE];
+
 	int res, action = 1;
 
-	const struct option long_option [] = 
-    {
-		{"input",  1, NULL, 'i'},
-		{"output", 1, NULL, 'o'},
-		{"block",  1, NULL, 'b'},
-		{"type",   1, NULL, 't'},
-        {"algo",   1, NULL, 'a'},
-		{"help",   0, NULL, 'h'},
-		{0, 	   0, NULL,  0 }
-	};
-	
-	if(argc < 2) 
-    {
-		help();
-		return 0;
-	}
+	char file_ini[] = "C:\\Users\\g\\Documents\\repos\\especialidad\\Cripto\\1.txt";
+	char file_fin[] = "C:\\Users\\g\\Documents\\repos\\especialidad\\Cripto\\crypto";
 
-	while((res = getopt_long(argc, argv, "i:o:b:t:a:h", long_option, 0)) != -1) 
-    {
-		switch(res)
-        {
-            case 'b' : 
-                block = atoi(optarg);
-                break;
-            case 'i' :
-                strcpy(file1, optarg);
-                break;
-            case 'o' : 
-                strcpy(file2, optarg);
-                break;
-            case 't' : 
-                action = atoi(optarg);
-                break;
-            case 'a' : 
-                printf("hola");
-                break;
-            case 'h' : 
-                help();
-                return 0;
-		}
-	}
-	
-	buf = xmalloc(sizeof(uint8_t) * block);
-	out = xmalloc(sizeof(uint8_t) * block);
-	
-	fp = open_file(file1, 1);
-	fd = open_file(file2, 2);
-	
-	memset(key, 'k', sizeof(key));
-	memset(iv, 'i', sizeof(iv));
+	uint8_t value = 0;
 
-	if(trivium_set_key_and_iv(&ctx, (uint8_t *)key, 10, iv, 2)) 
-    {
-		printf("Trivium context filling error!\n");
-		exit(1);
-	}
-	
-	while((byte = fread(buf, 1, block, fp)) > 0) 
-    {
-		if(action == 1)
-			trivium_crypt(&ctx, buf, byte, out);
-		else
-			trivium_crypt(&ctx, buf, byte, out);
-		
-		fwrite(out, 1, byte, fd);
-	}
-	
-	free(buf);
-	free(out);
-
-	return 0;
-}
-
-/*
-void main()
-{
-    uint8_t value = 0;
-
-    FILE *fp, *fd;
-	struct trivium_context ctx;
-	uint32_t byte, block = 10000;
-	uint8_t *buf, *out, key[10], iv[10];
-	char file1[MAX_FILE], file2[MAX_FILE];
-	int res, action = 1;
-
-    while((value = getchar()) != '0')
+	while((value = getchar()) != '0')
     {
         switch(value)
         {
-            case 'b' : 
-                block = atoi(optarg);
-                break;
-            case 'i' :
-                strcpy(file1, optarg);
-                break;
-            case 'o' : 
-                strcpy(file2, optarg);
-                break;
-            case 't' : 
-                action = atoi(optarg);
-                break;
-            case 'a' : 
-                printf("hola");
-                break;
-            //case 'h' : 
-            //    help();
-            //    break;
+			case 't': 
+				buf = xmalloc(sizeof(uint8_t) * block);
+				out = xmalloc(sizeof(uint8_t) * block);
+	
+				fp = open_file(file_ini, 1);
+				fd = open_file(file_fin, 2);
+				
+				memset(key, 'k', sizeof(key));
+				memset(iv, 'i', sizeof(iv));
+
+				if(trivium_set_key_and_iv(&ctx, (uint8_t *)key, 10, iv, 2)) 
+				{
+					printf("Trivium context filling error!\n");
+					exit(1);
+				}
+				
+				while((byte = fread(buf, 1, block, fp)) > 0) 
+				{
+					if(action == 1)
+						trivium_crypt(&ctx, buf, byte, out);
+					
+					fwrite(out, 1, byte, fd);
+				}
+				
+				free(buf);
+				free(out); 
+				break;
+
+			case 's':
+				printf("asdfasdf");
+				break;
 		}
-
-
-
-
-
-
-
-    }        
-
+	}
 }
-
-*/
